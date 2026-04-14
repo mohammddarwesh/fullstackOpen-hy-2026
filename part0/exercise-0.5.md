@@ -27,4 +27,4 @@ sequenceDiagram
     deactivate server
 
     Note right of browser: js renders the notes in the ui using dom manipulation
-    Note right of the browser : No page reload, everything happens dynamically
+    Note right of browser : No page reload, everything happens dynamically
