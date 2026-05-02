@@ -1,7 +1,8 @@
 import React from "react";
 
 const Statistics = ({ good, bad, neutral }) => {
-    const all =  good, bad, neutral 
+  const all = good + neutral + bad;
+  console.log("Statistics",good, bad, neutral);
   return (
     <div className="">
       <h3>statistics</h3>
