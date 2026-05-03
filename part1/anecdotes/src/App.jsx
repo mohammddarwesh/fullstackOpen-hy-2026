@@ -16,21 +16,39 @@ const App = () => {
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.",
     "The only way to go fast, is to go well.",
   ];
+  const array = Array(anecdotes.length).fill(0);
   const [selected, setSelected] = useState(0);
-  const setNextAnecdotes = () => {
+  const [voteArray, setVoteArray] = useState(array);
+  const onSetNextAnecdotes = () => {
     const x = getRandomArbitrary(0, anecdotes.length);
-
     setSelected(x);
+  };
+  const onSetVoteArray = () => {
+    console.log("selected", selected);
+    console.log("voteArray", voteArray);
+    setVoteArray(
+      voteArray.map((element, index) => {
+        console.log(element, index);
+        console.log("selected?", index === selected ? element + 1 : element);
+        return index === selected ? element + 1 : element;
+      }),
+    );
   };
 
   return (
     <div>
-      {anecdotes[selected]}
-
-      <button style={{ display: "block" }} onClick={() => setNextAnecdotes()}>
-        {" "}
-        next anecdotes{" "}
-      </button>
+      <p>{anecdotes[selected]}</p>
+      <p>has {voteArray[selected]} votes</p>
+      <div className="">
+        <button onClick={() => onSetVoteArray()}>vote</button>
+        <button
+          // style={{ display: "block" }}
+          onClick={() => onSetNextAnecdotes()}
+        >
+          {" "}
+          next anecdotes{" "}
+        </button>
+      </div>
     </div>
   );
 };
