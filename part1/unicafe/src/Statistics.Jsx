@@ -1,17 +1,20 @@
-import React from "react";
+import StatisticLine from "./StatisticLine";
 
 const Statistics = ({ good, bad, neutral }) => {
   const all = good + neutral + bad;
-  console.log("Statistics",good, bad, neutral);
+  console.log("Statistics", good, bad, neutral);
   return (
     <div className="">
       <h3>statistics</h3>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {good + neutral + bad} </p>
-      <p>average {all > 0 && (good - bad) / all}</p>
-      <p>positive {all > 0 && (good / all) * 100}% </p>
+      <StatisticLine text={"good"} value={good} />
+      <StatisticLine text={"neutral"} value={neutral} />
+      <StatisticLine text={"bad"} value={bad} />
+      <StatisticLine text={"all"} value={good + neutral + bad} />
+      <StatisticLine text={"average"} value={all > 0 && (good - bad) / all} />
+      <StatisticLine
+        text={"positive"}
+        value={(all > 0 && (good / all) * 100) + "%"}
+      />
     </div>
   );
 };
