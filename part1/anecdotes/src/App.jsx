@@ -16,40 +16,64 @@ const App = () => {
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.",
     "The only way to go fast, is to go well.",
   ];
-  const array = Array(anecdotes.length).fill(0);
   const [selected, setSelected] = useState(0);
-  const [voteArray, setVoteArray] = useState(array);
+  const [voteArray, setVoteArray] = useState(Array(anecdotes.length).fill(0));
+
+  const highestVote = Math.max(...voteArray);
+  const highestVoteIndex = voteArray.indexOf(highestVote);
+  // console.log(
+  //   "highestVote",
+  //   highestVote,
+  //   "index",
+  //   voteArray.indexOf(highestVote),
+  // );
+
   const onSetNextAnecdotes = () => {
     const x = getRandomArbitrary(0, anecdotes.length);
+    console.log("random", x);
     setSelected(x);
   };
   const onSetVoteArray = () => {
-    console.log("selected", selected);
     console.log("voteArray", voteArray);
+    console.log("selected", selected);
     setVoteArray(
       voteArray.map((element, index) => {
+        console.log("IsSelected?", index === selected ? element : false);
         console.log(element, index);
-        console.log("selected?", index === selected ? element + 1 : element);
         return index === selected ? element + 1 : element;
       }),
     );
   };
+  console.log("voteArray", voteArray);
 
   return (
-    <div>
-      <p>{anecdotes[selected]}</p>
-      <p>has {voteArray[selected]} votes</p>
-      <div className="">
-        <button onClick={() => onSetVoteArray()}>vote</button>
-        <button
-          // style={{ display: "block" }}
-          onClick={() => onSetNextAnecdotes()}
-        >
-          {" "}
-          next anecdotes{" "}
-        </button>
+    <>
+      <div>
+        <p>{anecdotes[selected]}</p>
+        <p>has {voteArray[selected]} votes</p>
+        <div className="">
+          <button onClick={() => onSetVoteArray()}>vote</button>
+          <button
+            // style={{ display: "block" }}
+            onClick={() => onSetNextAnecdotes()}
+          >
+            {" "}
+            next anecdotes{" "}
+          </button>
+        </div>
       </div>
-    </div>
+      {highestVote > 0 ? (
+        <div className="">
+          <h2>Anecdotes with most votes</h2>
+          <div>
+            <p>{anecdotes[highestVoteIndex]}</p>
+            <p>has {highestVote} votes</p>
+          </div>
+        </div>
+      ) : (
+        "No votes yet"
+      )}
+    </>
   );
 };
 
