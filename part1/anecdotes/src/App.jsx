@@ -1,9 +1,4 @@
 import { useState } from "react";
-function getRandomArbitrary(min, max) {
-  const random = Math.trunc(Math.random() * (max - min) + min);
-  console.log(random);
-  return random;
-}
 
 const App = () => {
   const anecdotes = [
@@ -21,30 +16,16 @@ const App = () => {
 
   const highestVote = Math.max(...voteArray);
   const highestVoteIndex = voteArray.indexOf(highestVote);
-  // console.log(
-  //   "highestVote",
-  //   highestVote,
-  //   "index",
-  //   voteArray.indexOf(highestVote),
-  // );
 
-  const onSetNextAnecdotes = () => {
-    const x = getRandomArbitrary(0, anecdotes.length);
-    console.log("random", x);
+  const handleNextAnecdote = () => {
+    const x = Math.floor(Math.random() * anecdotes.length);
     setSelected(x);
   };
-  const onSetVoteArray = () => {
-    console.log("voteArray", voteArray);
-    console.log("selected", selected);
-    setVoteArray(
-      voteArray.map((element, index) => {
-        console.log("IsSelected?", index === selected ? element : false);
-        console.log(element, index);
-        return index === selected ? element + 1 : element;
-      }),
-    );
+  const handleVote = () => {
+    const voteArrayCopy = [...voteArray];
+    voteArrayCopy[selected] += 1;
+    setVoteArray(voteArrayCopy);
   };
-  console.log("voteArray", voteArray);
 
   return (
     <>
@@ -52,10 +33,10 @@ const App = () => {
         <p>{anecdotes[selected]}</p>
         <p>has {voteArray[selected]} votes</p>
         <div className="">
-          <button onClick={() => onSetVoteArray()}>vote</button>
+          <button onClick={handleVote}>vote</button>
           <button
             // style={{ display: "block" }}
-            onClick={() => onSetNextAnecdotes()}
+            onClick={handleNextAnecdote}
           >
             {" "}
             next anecdotes{" "}
@@ -71,7 +52,7 @@ const App = () => {
           </div>
         </div>
       ) : (
-        "No votes yet"
+        <p>No votes yet</p>
       )}
     </>
   );
